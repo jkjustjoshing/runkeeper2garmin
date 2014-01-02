@@ -6,14 +6,10 @@ Takes an export of RunKeeper activities and uploads them to Garmin Connect
 
 ## Installation
 
-This module is installed via npm:
-
+No installation needed. Run
 ``` bash
-$ npm install runkeeper2garmin
+./runkeeper2garmin.js -h for usage
 ```
+for usage
 
 ## Example Usage
-
-``` js
-var runkeeper2garmin = require('runkeeper2garmin');
-```
