@@ -1,6 +1,7 @@
 var request = require('request').defaults({jar:true});
 var querystring = require('querystring');
 var $q = require('q');
+var fs = require('fs');
 
 module.exports = {
 
@@ -72,9 +73,54 @@ module.exports = {
    *   description: 'Sample Description'
    *   eventType: eventTypes[5] or 'training'
    * }
+   *
+   * URL for editing activity
+   * http://connect.garmin.com/activity/manual?activityId=423280216&mode=edit
+   *
+   * URL for uploading to
+   * http://connect.garmin.com/proxy/upload-service-1.1/json/upload/.gpx
+   * 
    */
   upload: function(data) {
+    console.log(data);
+    
+    var deferred = $q.defer();
 
+    // First, request upload page to set the cookies, and 
+    // then request manual upload page to set those cookies
+    request.get('http://connect.garmin.com/transfer/upload', function(error) {
+      if(error) {
+        deferred.reject(new Error(error));
+      } else {
+        request.get('http://connect.garmin.com/api/upload/widget/manualUpload.faces?uploadServiceVersion=1.1', function(error) {
+          if(error) {
+            deferred.reject(new Error(error));
+          } else {
+            // Can now upload file
+            console.log('Can now upload File');
+            var url = 'http://connect.garmin.com/proxy/upload-service-1.1/json/upload/.gpx';
+            fs.createReadStream(data.filename).pipe(request.post(url, function(error, response, body) {
+              console.log('error', error);
+              console.log('response', response);
+              console.log('body', body);
+
+            }));
+
+          }
+        })
+      }
+    });
+
+
+
+
+
+
+
+
+
+
+    
   },
 
   activityTypes: {
@@ -89,8 +135,8 @@ module.exports = {
     other: [ 'other', 'backcountry_skiing_snowboarding', 'boating', 'cross_country_skiing', 'driving_general', 'flying', 'golf', 'horseback_riding', 'inline_skating', 'mountaineering', 'paddling', 'resort_skiing_snowboarding', 'rowing', 'sailing', 'skate_skiing', 'skating', 'snowmobiling', 'snow_shoe', 'stand_up_paddleboarding', 'whitewater_rafting_kayaking', 'wind_kite_surfing' ]
   },
   eventTypes: [
-    'geocaching', 'fitness', 'recreation', 'race', 'specialEvent', 'training', 'transportation' 'touring', 'uncategorized'
+    'geocaching', 'fitness', 'recreation', 'race', 'specialEvent', 'training', 'transportation', 'touring', 'uncategorized'
   ]
 
 
-}
+};
