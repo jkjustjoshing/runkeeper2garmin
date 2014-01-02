@@ -61,6 +61,21 @@ module.exports = {
 
     return deferred.promise;
 
+  },
+
+  /*
+   * Supports only .gpx files for now, since that's what Runkeeper exports.
+   * Can this help? https://npmjs.org/package/gps-util
+   * data {
+   *   filename: 'path/to/map.gpx',
+   *   activityName:
+   *   activityType:
+   *   description:
+   *   eventType:
+   * }
+   */
+  upload: function(data) {
+
   }
 
 
