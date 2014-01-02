@@ -65,18 +65,32 @@ module.exports = {
 
   /*
    * Supports only .gpx files for now, since that's what Runkeeper exports.
-   * Can this help? https://npmjs.org/package/gps-util
    * data {
    *   filename: 'path/to/map.gpx',
-   *   activityName:
-   *   activityType:
-   *   description:
-   *   eventType:
+   *   activityName: 'Sample Activity',
+   *   activityType: activityTypes['running'][1] or 'street_running'
+   *   description: 'Sample Description'
+   *   eventType: eventTypes[5] or 'training'
    * }
    */
   upload: function(data) {
 
-  }
+  },
+
+  activityTypes: {
+    running: [ 'running', 'street_running', 'track_running', 'trail_running', 'treadmill_running' ],
+    cycling: [ 'cycling', 'cyclocross', 'downhill_biking', 'indoor_cycling', 'mountain_biking', 'recumbent_cycling', 'road_biking', 'track_cycling', ],
+    fitness_equipment: [ 'fitness_equipment', 'elliptical', 'indoor_cardio', 'indoor_rowing', 'stair_climbing', 'strength_training' ],
+    hiking: [ 'hiking' ],
+    swimming: [ 'swimming', 'lap_swimming', 'open_water_swimming' ],
+    walking: [ 'walking', 'casual_walking', 'speed_walking' ],
+    transition: [ 'transition', 'swimToBikeTransition', 'bikeToRunTransition', 'runToBikeTransition' ],
+    motorcycling: [ 'motorcycling' ],
+    other: [ 'other', 'backcountry_skiing_snowboarding', 'boating', 'cross_country_skiing', 'driving_general', 'flying', 'golf', 'horseback_riding', 'inline_skating', 'mountaineering', 'paddling', 'resort_skiing_snowboarding', 'rowing', 'sailing', 'skate_skiing', 'skating', 'snowmobiling', 'snow_shoe', 'stand_up_paddleboarding', 'whitewater_rafting_kayaking', 'wind_kite_surfing' ]
+  },
+  eventTypes: [
+    'geocaching', 'fitness', 'recreation', 'race', 'specialEvent', 'training', 'transportation' 'touring', 'uncategorized'
+  ]
 
 
 }
